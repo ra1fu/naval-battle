@@ -15,7 +15,6 @@ public class Tournament {
     private List<Player> participants;
     private List<Result> results;
 
-    // Конструктор
     public Tournament(int tournamentId, String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.tournamentId = tournamentId;
         this.name = name;
@@ -26,7 +25,6 @@ public class Tournament {
         this.results = new ArrayList<>();
     }
 
-    // Геттеры и сеттеры
     public int getTournamentId() {
         return tournamentId;
     }
@@ -83,12 +81,10 @@ public class Tournament {
         this.results = results;
     }
 
-    // Создание турнира
     public void createTournament() {
         System.out.println("Tournament " + name + " created.");
     }
 
-    // Регистрация игрока
     public boolean registerPlayer(Player player) {
         if (!participants.contains(player)) {
             participants.add(player);
@@ -100,7 +96,6 @@ public class Tournament {
         }
     }
 
-    // Начало турнира
     public void startTournament() {
         if (participants.size() < 2) {
             System.out.println("Not enough participants to start the tournament.");
@@ -110,7 +105,6 @@ public class Tournament {
         System.out.println("Tournament " + name + " started.");
     }
 
-    // Проведение матча
     public void conductMatch(Player player1, Player player2) {
         if (!participants.contains(player1) || !participants.contains(player2)) {
             System.out.println("Both players must be registered to conduct the match.");
@@ -119,25 +113,20 @@ public class Tournament {
 
         System.out.println("Match between " + player1.getName() + " and " + player2.getName() + " started.");
 
-        // Симуляция результата матча (случайный выбор победителя)
         Player winner = simulateMatch(player1, player2);
 
-        // Создание результата матча и добавление в список
         Result result = new Result(player1, player2, winner);
         results.add(result);
         System.out.println("Match concluded. " + winner.getName() + " wins!");
     }
 
-    // Симуляция результата матча
     private Player simulateMatch(Player player1, Player player2) {
         Random random = new Random();
         return random.nextBoolean() ? player1 : player2; // Случайный победитель
     }
 
-    // Определение победителя турнира
     public void determineWinner() {
         if (!results.isEmpty()) {
-            // Победитель — последний записанный результат
             Result lastResult = results.get(results.size() - 1);
             System.out.println("Tournament winner: " + lastResult.getWinner().getName());
             status = "completed";
@@ -146,7 +135,6 @@ public class Tournament {
         }
     }
 
-    // Обновление статуса турнира
     public void updateTournamentStatus(String status) {
         this.status = status;
         System.out.println("Tournament status updated to: " + status);
