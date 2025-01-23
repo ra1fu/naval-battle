@@ -25,7 +25,6 @@ public class Player {
         this.losses = losses;
     }
 
-    // Геттеры и Сеттеры
     public int getPlayerId() { return playerId; }
     public String getName() { return name; }
     public int getRating() { return rating; }
