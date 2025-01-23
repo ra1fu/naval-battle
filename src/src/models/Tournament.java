@@ -1,0 +1,154 @@
+package models;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Tournament {
+
+    private int tournamentId;
+    private String name;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private String status;
+    private List<Player> participants;
+    private List<Result> results;
+
+    // Конструктор
+    public Tournament(int tournamentId, String name, LocalDateTime startDate, LocalDateTime endDate) {
+        this.tournamentId = tournamentId;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = "planned"; // Статус по умолчанию
+        this.participants = new ArrayList<>();
+        this.results = new ArrayList<>();
+    }
+
+    // Геттеры и сеттеры
+    public int getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(int tournamentId) {
+        this.tournamentId = tournamentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<Player> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Player> participants) {
+        this.participants = participants;
+    }
+
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
+
+    // Создание турнира
+    public void createTournament() {
+        System.out.println("Tournament " + name + " created.");
+    }
+
+    // Регистрация игрока
+    public boolean registerPlayer(Player player) {
+        if (!participants.contains(player)) {
+            participants.add(player);
+            System.out.println("Player " + player.getName() + " registered for the tournament.");
+            return true;
+        } else {
+            System.out.println("Player " + player.getName() + " is already registered.");
+            return false;
+        }
+    }
+
+    // Начало турнира
+    public void startTournament() {
+        if (participants.size() < 2) {
+            System.out.println("Not enough participants to start the tournament.");
+            return;
+        }
+        status = "in progress";
+        System.out.println("Tournament " + name + " started.");
+    }
+
+    // Проведение матча
+    public void conductMatch(Player player1, Player player2) {
+        if (!participants.contains(player1) || !participants.contains(player2)) {
+            System.out.println("Both players must be registered to conduct the match.");
+            return;
+        }
+
+        System.out.println("Match between " + player1.getName() + " and " + player2.getName() + " started.");
+
+        // Симуляция результата матча (случайный выбор победителя)
+        Player winner = simulateMatch(player1, player2);
+
+        // Создание результата матча и добавление в список
+        Result result = new Result(player1, player2, winner);
+        results.add(result);
+        System.out.println("Match concluded. " + winner.getName() + " wins!");
+    }
+
+    // Симуляция результата матча
+    private Player simulateMatch(Player player1, Player player2) {
+        Random random = new Random();
+        return random.nextBoolean() ? player1 : player2; // Случайный победитель
+    }
+
+    // Определение победителя турнира
+    public void determineWinner() {
+        if (!results.isEmpty()) {
+            // Победитель — последний записанный результат
+            Result lastResult = results.get(results.size() - 1);
+            System.out.println("Tournament winner: " + lastResult.getWinner().getName());
+            status = "completed";
+        } else {
+            System.out.println("Tournament results are not yet determined.");
+        }
+    }
+
+    // Обновление статуса турнира
+    public void updateTournamentStatus(String status) {
+        this.status = status;
+        System.out.println("Tournament status updated to: " + status);
+    }
+}
