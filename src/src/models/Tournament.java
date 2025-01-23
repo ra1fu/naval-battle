@@ -20,7 +20,7 @@ public class Tournament {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.status = "planned"; // Статус по умолчанию
+        this.status = "planned"; 
         this.participants = new ArrayList<>();
         this.results = new ArrayList<>();
     }
