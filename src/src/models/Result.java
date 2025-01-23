@@ -6,14 +6,12 @@ public class Result {
     private Player player2;
     private Player winner;
 
-    // Конструктор
     public Result(Player player1, Player player2, Player winner) {
         this.player1 = player1;
         this.player2 = player2;
         this.winner = winner;
     }
 
-    // Геттеры и сеттеры
     public Player getPlayer1() {
         return player1;
     }
